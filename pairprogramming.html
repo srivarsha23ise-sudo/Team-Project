@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>URL Shortener with Click Counter</h2>
+
+<input type="text" id="longUrl" placeholder="Enter URL">
+<button onclick="shorten()">Shorten</button>
+
+<p id="result"></p>
+<p id="count"></p>
+
+<script>
+let urlMap = {};
+let clickCount = {};
+
+function shorten() {
+    let url = document.getElementById("longUrl").value;
+    let code = Math.floor(Math.random()*1000);
+
+    urlMap[code] = url;
+    clickCount[code] = 0;
+
+    document.getElementById("result").innerHTML =
+        `<a href="#" onclick="redirect(${code})">short.ly/${code}</a>`;
+}
+
+function redirect(code) {
+    clickCount[code]++;
+    document.getElementById("count").innerHTML =
+        "Clicks: " + clickCount[code];
+
+    window.location.href = urlMap[code];
+}
+</script>
+
+</body>
+</html>
